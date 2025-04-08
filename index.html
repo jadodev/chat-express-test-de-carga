@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chat Socket.IO</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 20px;
+    }
+    #messages {
+      list-style: none;
+      padding: 0;
+    }
+    #messages li {
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Chat en Tiempo Real</h1>
+
+  <ul id="messages"></ul>
+
+  <input id="message" placeholder="Escribe un mensaje..." />
+  <button onclick="sendMessage()">Enviar</button>
+
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script>
+    const socket = io({ transports: ["websocket"] });
+
+    let username = prompt("Ingresa tu nombre:");
+    while (!username || username.trim() === "") {
+      username = prompt("El nombre no puede estar vacío. Ingresa tu nombre:");
+    }
+
+    const user = { name: username.trim() };
+
+    socket.emit("register user", user, (response) => {
+      if (response.status === "ok") {
+        addMessage(` Bienvenido, ${user.name}`);
+      } else {
+        addMessage(` Error al registrarse`);
+      }
+    });
+
+    socket.on("chat message", (msg) => {
+      console.log(msg)
+      addMessage(`[${msg.user}]: ${msg.text}`);
+    });
+
+    function sendMessage() {
+      const input = document.getElementById("message");
+      const text = input.value.trim();
+      if (text) {
+        socket.emit("chat message", { text }, (response) => {
+          if (response.status === "ok") {
+            addMessage(`[Tú]: ${text}`);
+            input.value = "";
+          } else {
+            addMessage("[Error] No se pudo enviar el mensaje.");
+          }
+        });
+      }
+    }
+
+    function addMessage(text) {
+      const li = document.createElement("li");
+      li.textContent = text;
+      document.getElementById("messages").appendChild(li);
+    }
+  </script>
+</body>
+</html>
