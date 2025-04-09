@@ -47,10 +47,8 @@ const userDomainService = new UserDomainService(userRepository);
 const userAppService = new UserApplicationService(userDomainService);
 const userController = new UserController(userAppService);
 
-app.use(express.static(__dirname));
-
 app.get('/', (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.send("chat en tiempo real");
 });
 
 io.on('connection', (socket: Socket) => {
