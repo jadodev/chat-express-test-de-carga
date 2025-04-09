@@ -20,4 +20,4 @@ RUN npm run build
 EXPOSE 4000
 
 # Comando para ejecutar la app compilada
-CMD ["node", "dist/index.js"]
+CMD ["npm","run dev"]

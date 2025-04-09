@@ -1,7 +1,7 @@
 {
   "name": "chat-express",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "build": "tsc",
     "start": "node dist/main.js",
