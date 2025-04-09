@@ -1,5 +1,5 @@
 export const redisConecction = {
-    host: "redis",
+    host: "host.docker.internal",
     port:6379,
     maxRetriesPerRequest: null,
 }
