@@ -28,7 +28,7 @@ const io = new Server(server, {
 });
 
 
-const pubClient = createClient();
+const pubClient = createClient({ url: "redis://redis:6379" });
 const subClient = pubClient.duplicate();
 
 async function startServer() {
