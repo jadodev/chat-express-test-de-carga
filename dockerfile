@@ -10,11 +10,14 @@ COPY package*.json ./
 # Instalar dependencias
 RUN npm install
 
-# Copiar el resto del código
+# Copiar el resto del código fuente
 COPY . .
 
-# Exponer el puerto en el que corre tu app
+# Compilar TypeScript a JavaScript
+RUN npm run build
+
+# Exponer el puerto de la app
 EXPOSE 4000
 
-# Comando para iniciar la app
-CMD ["npm", "start"]
+# Comando para ejecutar la app compilada
+CMD ["node", "dist/index.js"]
