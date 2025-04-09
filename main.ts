@@ -1,5 +1,4 @@
 import { Socket } from "socket.io";
-import path from "path";
 import { Request, Response } from "express";
 import { createAdapter } from '@socket.io/redis-adapter';
 import './src/infrastructure/worker/messageWorker';
