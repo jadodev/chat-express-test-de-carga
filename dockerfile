@@ -1,23 +1,21 @@
-# Imagen base oficial de Node.js
+# Imagen base
 FROM node:18
 
 # Crear directorio de trabajo
 WORKDIR /app
 
-# Copiar archivos de definición de dependencias
+# Copiar dependencias
 COPY package*.json ./
 
-# Instalar dependencias
+# Instalar dependencias incluyendo devDependencies
 RUN npm install
 
-# Copiar el resto del código fuente
+# Copiar todo el código
 COPY . .
 
-# Compilar TypeScript a JavaScript
-RUN npm run build
-
-# Exponer el puerto de la app
+# Exponer puerto
 EXPOSE 4000
 
-# Comando para ejecutar la app compilada
-CMD ["npm","run dev"]
+# Comando de desarrollo
+CMD ["npx", "nodemon"]
+
